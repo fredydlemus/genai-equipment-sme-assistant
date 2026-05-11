@@ -1,0 +1,1 @@
+# genai-equipment-sme-assistant
