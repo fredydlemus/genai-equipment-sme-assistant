@@ -47,6 +47,11 @@ jobs:
         working-directory: ./terraform
         run: terraform validate
 
+      - name: Set TFVARS
+        working-directory: ./terraform
+        run: |
+          echo "model_id=${{ vars.MODEL_ID}}" >> terraform.tfvars
+
       - name: Terraform Plan
         working-directory: ./terraform
         run: terraform plan -out=tfplan

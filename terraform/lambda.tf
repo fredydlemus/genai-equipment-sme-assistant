@@ -13,4 +13,10 @@ resource "aws_lambda_function" "equipment_sme_assitant" {
   timeout       = 120
 
   source_code_hash = data.archive_file.lambda_zip.output_base64sha256
+
+  environment {
+    variables = {
+      MODEL_ID = var.model_id
+    }
+  }
 }
