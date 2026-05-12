@@ -50,7 +50,7 @@ jobs:
       - name: Set TFVARS
         working-directory: ./terraform
         run: |
-          echo "model_id=${{ vars.MODEL_ID}}" >> terraform.tfvars
+          echo "model_id=${{ vars.AMAZON_BEDROCK_NOVA_PRO_MODEL_ID }}" >> terraform.tfvars
 
       - name: Terraform Plan
         working-directory: ./terraform
