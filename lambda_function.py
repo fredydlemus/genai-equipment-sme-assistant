@@ -1,5 +1,6 @@
 import boto3
 import os
+import json
 
 client_sme = boto3.client("bedrock-runtime")
 
@@ -10,23 +11,38 @@ def lambda_handler(event, context):
     user_input = event['prompt']
     print(user_input)
 
-    message_list = [{
+    message_prompt = [{
             "role": "user",
             "content": [{
                 "text": user_input
             }]
         }]
 
+    system_prompt = [{
+        "text": "Act as a wind turbine manufacturing assitant. Summarize the logs in 5 lines."
+    }]
+
+    inference_params = {
+        "maxTokens": 2500,
+        "topP": 0.95,
+        "topK": 20,
+        "temperature": 0.7
+    }
+
     request_body = {
         "schemaVersion": "messages-v1",
-        "messages": message_list
+        "messages": message_prompt,
+        "system": system_prompt,
+        "inferenceConfig": inference_params
     }
 
     response = client_sme.invoke_model(
-        body=request_body,
+        body=json.dumps(request_body),
         contentType="application/json",
         accept="application/json",
         modelId=model_id,
         trace="ENABLED",
         performanceConfigLatency='standard'
     )
+
+    print(response)
