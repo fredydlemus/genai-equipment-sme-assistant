@@ -45,7 +45,7 @@ def lambda_handler(event, context):
     )
 
     response_dict = json.loads(response['body'].read())
-    final_response = response_dict['output']['messages']['content'][0]['text']
+    final_response = response_dict['output']['message']['content'][0]['text']
 
     return {
         'statusCode': 200,
