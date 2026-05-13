@@ -9,7 +9,6 @@ def lambda_handler(event, context):
     model_id = os.environ["MODEL_ID"]
 
     user_input = event['prompt']
-    print(f"user_input: {user_input}")
 
     message_prompt = [{
             "role": "user",
