@@ -9,7 +9,7 @@ def lambda_handler(event, context):
     model_id = os.environ["MODEL_ID"]
 
     user_input = event['prompt']
-    print(user_input)
+    print(f"user_input: {user_input}")
 
     message_prompt = [{
             "role": "user",
@@ -45,4 +45,10 @@ def lambda_handler(event, context):
         performanceConfigLatency='standard'
     )
 
-    print(response)
+    response_dict = json.loads(response['body'].read())
+    final_response = response_dict['output']['messages']['content'][0]['text']
+
+    return {
+        'statusCode': 200,
+        'body': json.dumps(final_response)
+    }
