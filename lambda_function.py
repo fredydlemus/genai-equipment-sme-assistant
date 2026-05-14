@@ -4,16 +4,16 @@ import json
 
 client_sme = boto3.client("bedrock-runtime")
 
+model_id = os.environ["MODEL_ID"]
+
 def lambda_handler(event, context):
-
-    model_id = os.environ["MODEL_ID"]
-
-    user_input = event['prompt']
+    body = json.loads(event['body'])
+    prompt = body['prompt']
 
     message_prompt = [{
             "role": "user",
             "content": [{
-                "text": user_input
+                "text": prompt
             }]
         }]
 
